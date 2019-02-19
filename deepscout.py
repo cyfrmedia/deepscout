@@ -24,9 +24,9 @@ i = 0
 #add fresno teams to list of all teams, removing those already on list from davis
 while i < len(cafrteams):
     current_team = cafrteams[i]
-    if current_team in allteams
+    if current_team in allteams:
         bothcomps.append(current_team)
-    if current_team not in allteams
+    if current_team not in allteams:
         allteams.append(current_team)
     i += 1
 
