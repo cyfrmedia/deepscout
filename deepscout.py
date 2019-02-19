@@ -1,5 +1,6 @@
 import tbapy
 import csv
+#if you plan on using this code, please generate your own TBA API key
 tba = tbapy.TBA('5dZk9TNOXQwwP01zeMbhWWpe2Nq5KwGNnBWcxN4zlpVDt3ESE6VdnSOYYG0LchNm')
 
 #set up variables for data storage
@@ -8,15 +9,6 @@ cafrteams = [1072,1280,1323,1351,1388,1422,1662,1671,1678,1967,2085,2135,2489,28
 bothcomps = []
 allteams = []
 attending = {
-
-}
-att_sans_cada = {
-
-}
-att_sans_cafr = {
-
-}
-att_sans_both = {
 
 }
 
@@ -42,10 +34,8 @@ i = 0
 print(allteams)
 while i < len(allteams):
     current_team = allteams[i]
-    #fill out attendance dictionaries
+    #fill out attendance dictionary
     attending[current_team] = tba.team_events(current_team, 2019, keys=True)
-    #print(current_team, end = " ")
-    #print(tba.team_events(current_team, 2019, keys=True))
     i += 1
 
 #print("Enter the team you'd like to search: ")
@@ -62,8 +52,3 @@ for x, y in attending.items():
         evlist = attending.get(x)
         print(tba.event(evlist[1], simple=True))
         print(x, y)
-
-
-#Calling methods on your TBA client will be slower than using variables already loaded, because each call makes a request to TBA's web API (specifically https://thebluealliance.org/api/v3/<some URL>). In places where you call the same method with the same arguments twice, like lines 29 and 30 or 46 and 52, storing tba.team_events(current_team, 2019, keys=True) in a variable and then using it from there should make the script significantly faster.
-
-#tba.event(attending.get(current_team), simple=True)
