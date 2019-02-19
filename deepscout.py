@@ -25,15 +25,12 @@ i = 0
 while i < len(cadateams):
     current_team = cadateams[i]
     allteams.append(current_team)
-    #fill out attendance dictionary
-    if current_team not in attending:
-        attending[current_team] = tba.team_events(current_team, 2019, keys=True)
+    #fill out attendance dictionaries
+    attending[current_team] = tba.team_events(current_team, 2019, keys=True)
+    att_sans_cada[current_team] = tba.team_events(current_team, 2019, keys=True)
     #fill out list of teams that will be at both cada and cafr
     if current_team in cafrteams:
         bothcomps.append(current_team)
-    #fills out attendance dictionary without sac event key
-    if current_team not in att_sans_cada:
-        att_sans_cada[current_team] = tba.team_events(current_team, 2019, keys=True).remove("2019cada")
     #print(current_team, end = " ")
     #print(tba.team_events(current_team, 2019, keys=True))
     i += 1
@@ -52,13 +49,28 @@ while i < len(cafrteams):
         bothcomps.append(current_team)
     #fills out attendance dictionary without fresno event key
     if current_team not in att_sans_cafr:
-        att_sans_cafr[current_team] = tba.team_events(current_team, 2019, keys=True).remove("2019cafr")
+        att_sans_cafr[current_team] = tba.team_events(current_team, 2019, keys=True)
     #if current_team not in bothcomps:
         #print(current_team, end = " ")
         #if "2019cafr" == tba.team_events(current_team, 2019, keys=True):
         #    print("No other competitions.")
         #print(tba.team_events(current_team, 2019, keys=True))
     i += 1
+
+#print("Enter the team you'd like to search: ")
+#result = attending.get(input())
+#print(result)
+print(attending)
+
+for x, y in attending.items():
+    if '2019cafr' in attending.get(x):
+        attending.get(x).remove('2019cafr')
+    if '2019cada' in attending.get(x):
+        attending.get(x).remove('2019cada')
+    if len(attending.get(x)) != 0:
+        evlist = attending.get(x)
+        print(tba.event(evlist[1], simple=True))
+        print(x, y)
 
 
 
