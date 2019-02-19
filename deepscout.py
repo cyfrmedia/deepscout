@@ -20,41 +20,32 @@ att_sans_both = {
 
 }
 
-#increment through davis
+
 i = 0
+#add davis teams to list of all teams
 while i < len(cadateams):
     current_team = cadateams[i]
     allteams.append(current_team)
-    #fill out attendance dictionaries
-    attending[current_team] = tba.team_events(current_team, 2019, keys=True)
-    att_sans_cada[current_team] = tba.team_events(current_team, 2019, keys=True)
-    #fill out list of teams that will be at both cada and cafr
-    if current_team in cafrteams:
-        bothcomps.append(current_team)
-    #print(current_team, end = " ")
-    #print(tba.team_events(current_team, 2019, keys=True))
     i += 1
 
-#increment through fresno
 i = 0
+#add fresno teams to list of all teams, removing those already on list from davis
 while i < len(cafrteams):
     current_team = cafrteams[i]
-    if current_team not in allteams:
-        allteams.append(current_team)
-    #fill out attendance dictionary
-    if current_team not in attending:
-        attending[current_team] = tba.team_events(current_team, 2019, keys=True)
-    #fill out list of teams attending both cada and cafr
-    if current_team in cadateams:
+    if current_team in allteams
         bothcomps.append(current_team)
-    #fills out attendance dictionary without fresno event key
-    if current_team not in att_sans_cafr:
-        att_sans_cafr[current_team] = tba.team_events(current_team, 2019, keys=True)
-    #if current_team not in bothcomps:
-        #print(current_team, end = " ")
-        #if "2019cafr" == tba.team_events(current_team, 2019, keys=True):
-        #    print("No other competitions.")
-        #print(tba.team_events(current_team, 2019, keys=True))
+    if current_team not in allteams
+        allteams.append(current_team)
+    i += 1
+
+i = 0
+print(allteams)
+while i < len(allteams):
+    current_team = allteams[i]
+    #fill out attendance dictionaries
+    attending[current_team] = tba.team_events(current_team, 2019, keys=True)
+    #print(current_team, end = " ")
+    #print(tba.team_events(current_team, 2019, keys=True))
     i += 1
 
 #print("Enter the team you'd like to search: ")
@@ -73,5 +64,6 @@ for x, y in attending.items():
         print(x, y)
 
 
+#Calling methods on your TBA client will be slower than using variables already loaded, because each call makes a request to TBA's web API (specifically https://thebluealliance.org/api/v3/<some URL>). In places where you call the same method with the same arguments twice, like lines 29 and 30 or 46 and 52, storing tba.team_events(current_team, 2019, keys=True) in a variable and then using it from there should make the script significantly faster.
 
 #tba.event(attending.get(current_team), simple=True)
